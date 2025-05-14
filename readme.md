@@ -37,4 +37,4 @@ QMK is developed and maintained by Jack Humbert of OLKB with contributions from 
 
 ## Fork additions
 
-Added personal layout variation for custom keymap.
+Added personal layout variation for custom keymap in [the hall effect branch](https://github.com/Mirovh/qmk_firmware/tree/hall_effect_playground).
