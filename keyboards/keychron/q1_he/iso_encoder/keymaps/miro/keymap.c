@@ -96,110 +96,50 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
-    if ((keycode == BE_DCIR) & (record->event.pressed)) {
-        // If Alt is held, let the OS see the dead-key as usual
-        // Otherwise, send a plain '^' and consume the key
-        if (get_mods() & (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT))) {
-            // Clear all modifiers to prevent interference
-            // 1) Save the full mods (including Alt)
-            uint8_t saved_mods = get_mods();
-            // 2) Clear mods
-            tap_code(KC_F16); //null tap to avoid seeing alt release as a tap
-            clear_mods();
-            // 3) Actual dead circonflex tap
-            tap_code(BE_DCIR);
-            // 4) Restore mods
-            set_mods(saved_mods);
-            tap_code(KC_F16); //null tap to avoid seeing next release as alt tap
-            return false;
-        } else {
-            // 1) Ctrl+Shift+U to start Unicode hex input (LINUX ONLY)
-            register_code(KC_LCTL);
-            register_code(KC_LSFT);
-            tap_code(KC_U);
-            unregister_code(KC_LSFT);
-            unregister_code(KC_LCTL);
-
-            // 2) Type 005E (hex for U+005E = ^)
-            SEND_STRING("005E");
-            return false;
-        }
-    }
-
     if ((keycode == BE_HASH) & (record->event.pressed)) {
         // If Alt is held, send degree symbol
         // Otherwise, pass on
         if (get_mods() & (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT))) {
-            // Clear all modifiers to prevent interference
-            // 1) Save the full mods (including Alt)
             uint8_t saved_mods = get_mods();
-            // 2) Clear mods
-            tap_code(KC_F16); //null tap to avoid seeing alt release as a tap
+            tap_code(KC_F16); // null tap to avoid seeing alt release as a tap
             clear_mods();
-            // 3) Actual symbol
-            register_code(KC_LCTL);
             register_code(KC_LSFT);
-            tap_code(KC_U);
+            tap_code(BE_RPRN);
             unregister_code(KC_LSFT);
-            unregister_code(KC_LCTL);
-            // what follows is just B0, the unicode for °
-            tap_code(BE_B);
-            register_code(KC_LSFT);
-            tap_code(BE_AGRV); 
-            unregister_code(KC_LSFT);
-            // 4) Restore mods
             set_mods(saved_mods);
-            tap_code(KC_F16); //null tap to avoid seeing next release as alt tap
+            tap_code(KC_F16); // null tap to avoid seeing next release as alt tap
             return false;
         }
     }
-
+    
     if ((keycode == BE_AMPR) & (record->event.pressed)) {
         // If Alt is held, send backtick symbol
         // Otherwise, pass on
         if (get_mods() & (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT))) {
-            // Clear all modifiers to prevent interference
-            // 1) Save the full mods (including Alt)
             uint8_t saved_mods = get_mods();
-            // 2) Clear mods
-            tap_code(KC_F16); //null tap to avoid seeing alt release as a tap
+            tap_code(KC_F16); // null tap to avoid seeing alt release as a tap
             clear_mods();
-            // 3) Actual symbol
-            register_code(KC_LCTL);
             register_code(KC_LSFT);
-            tap_code(KC_U);
+            tap_code(BE_MICR);
             unregister_code(KC_LSFT);
-            unregister_code(KC_LCTL);
-            SEND_STRING("0060");
-            tap_code(KC_ENT);
-            // 4) Restore mods
             set_mods(saved_mods);
-            tap_code(KC_F16); //null tap to avoid seeing next release as alt tap
+            tap_code(KC_F16); // null tap to avoid seeing next release as alt tap
             return false;
         }
     }
-
+    
     if ((keycode == BE_MINS) & (record->event.pressed)) {
-        // If Alt is held, send accent
+        // If Alt is held, send accent symbol
         // Otherwise, pass on
         if (get_mods() & (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT))) {
-            // Clear all modifiers to prevent interference
-            // 1) Save the full mods (including Alt)
             uint8_t saved_mods = get_mods();
-            // 2) Clear mods
-            tap_code(KC_F16); //null tap to avoid seeing alt release as a tap
+            tap_code(KC_F16); // null tap to avoid seeing alt release as a tap
             clear_mods();
-            // 3) Actual symbol
-            register_code(KC_LCTL);
             register_code(KC_LSFT);
-            tap_code(KC_U);
+            tap_code(BE_UGRV);
             unregister_code(KC_LSFT);
-            unregister_code(KC_LCTL);
-            SEND_STRING("0301");
-            tap_code(KC_ENT);
-            // 4) Restore mods
             set_mods(saved_mods);
-            tap_code(KC_F16); //null tap to avoid seeing next release as alt tap
+            tap_code(KC_F16); // null tap to avoid seeing next release as alt tap
             return false;
         }
     }
